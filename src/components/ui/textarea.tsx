@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+import * as React from "react";
 
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
@@ -20,9 +16,9 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         ref={ref}
         {...props}
       />
-    )
+    );
   }
-)
-Textarea.displayName = "Textarea"
+);
+Textarea.displayName = "Textarea";
 
-export { Textarea }
+export { Textarea };
