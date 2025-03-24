@@ -17,9 +17,12 @@ import Chat from "./pages/Chat";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
+<<<<<<< HEAD
 import PharmacyLocator from "./pages/PharmacyLocator";
 import HealthMetrics from "./pages/HealthMetrics";
 import Appointments from "./pages/Appointments";
+=======
+>>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
 
 // Add Framer Motion
 import { MotionConfig } from 'framer-motion';
@@ -71,6 +74,7 @@ const App = () => (
                         </ProtectedRoute>
                       } 
                     />
+<<<<<<< HEAD
                     <Route 
                       path="/pharmacy-locator" 
                       element={
@@ -95,6 +99,8 @@ const App = () => (
                         </ProtectedRoute>
                       } 
                     />
+=======
+>>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>

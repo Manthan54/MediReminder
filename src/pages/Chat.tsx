@@ -2,8 +2,11 @@
 import React from 'react';
 import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/ChatInterface';
+<<<<<<< HEAD
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle } from 'lucide-react';
+=======
+>>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
 
 const Chat = () => {
   return (
@@ -11,6 +14,7 @@ const Chat = () => {
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold">AI Health Assistant</h1>
         <p className="text-muted-foreground">
+<<<<<<< HEAD
           Get reliable information about medications, potential side effects, or general health advice.
         </p>
         
@@ -58,6 +62,11 @@ const Chat = () => {
             </Card>
           </div>
         </div>
+=======
+          Ask questions about your medications, potential side effects, or general health advice.
+        </p>
+        <ChatInterface />
+>>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
       </div>
     </Layout>
   );
