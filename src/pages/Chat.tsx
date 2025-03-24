@@ -1,12 +1,8 @@
-
 import React from 'react';
 import { Layout } from '@/components/Layout';
 import { ChatInterface } from '@/components/ChatInterface';
-<<<<<<< HEAD
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle } from 'lucide-react';
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
 
 const Chat = () => {
   return (
@@ -14,10 +10,9 @@ const Chat = () => {
       <div className="space-y-4">
         <h1 className="text-2xl font-semibold">AI Health Assistant</h1>
         <p className="text-muted-foreground">
-<<<<<<< HEAD
           Get reliable information about medications, potential side effects, or general health advice.
         </p>
-        
+
         <div className="bg-yellow-100 dark:bg-yellow-900/30 border border-yellow-300 dark:border-yellow-700 p-3 rounded-md flex items-start gap-2 mb-4">
           <AlertCircle className="h-5 w-5 text-yellow-600 dark:text-yellow-500 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-yellow-800 dark:text-yellow-200">
@@ -25,12 +20,12 @@ const Chat = () => {
             <p>This assistant provides general medical information for educational purposes. Always consult with a healthcare professional for personalized medical advice.</p>
           </div>
         </div>
-        
+
         <div className="grid md:grid-cols-4 gap-4">
           <div className="md:col-span-3">
             <ChatInterface />
           </div>
-          
+
           <div className="md:col-span-1 space-y-4">
             <Card>
               <CardHeader className="pb-2">
@@ -49,7 +44,7 @@ const Chat = () => {
                 </ul>
               </CardContent>
             </Card>
-            
+
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-base">About This Assistant</CardTitle>
@@ -62,14 +57,10 @@ const Chat = () => {
             </Card>
           </div>
         </div>
-=======
-          Ask questions about your medications, potential side effects, or general health advice.
-        </p>
-        <ChatInterface />
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
       </div>
     </Layout>
   );
 };
 
 export default Chat;
+
