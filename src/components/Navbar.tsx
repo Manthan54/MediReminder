@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, PlusCircle, MessageCircle, Settings, MapPin, Activity, CalendarCheck } from 'lucide-react';
@@ -5,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
-
+  
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
     { path: '/medications', icon: PlusCircle, label: 'Medications' },
@@ -22,9 +23,7 @@ export const Navbar: React.FC = () => {
       <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-lg z-50 border-b border-border">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center">
-            <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
-              MediMinder
-            </span>
+            <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">MediMinder</span>
           </div>
         </div>
       </header>
@@ -34,9 +33,9 @@ export const Navbar: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-7 items-center h-16">
             {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
+              <Link 
+                key={item.path} 
+                to={item.path} 
                 className="relative flex flex-col items-center justify-center w-full h-full"
               >
                 <div className="relative">
@@ -44,20 +43,14 @@ export const Navbar: React.FC = () => {
                     <motion.div
                       layoutId="nav-indicator"
                       className="absolute -inset-1 bg-primary/10 rounded-full"
-                      transition={{ type: 'spring', duration: 0.5 }}
+                      transition={{ type: "spring", duration: 0.5 }}
                     />
                   )}
-                  <item.icon
-                    className={`h-5 w-5 ${
-                      location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'
-                    }`}
+                  <item.icon 
+                    className={`h-5 w-5 ${location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'}`} 
                   />
                 </div>
-                <span
-                  className={`text-xs mt-1 ${
-                    location.pathname === item.path ? 'text-primary font-medium' : 'text-muted-foreground'
-                  } truncate`}
-                >
+                <span className={`text-xs mt-1 ${location.pathname === item.path ? 'text-primary font-medium' : 'text-muted-foreground'} truncate`}>
                   {item.label}
                 </span>
               </Link>

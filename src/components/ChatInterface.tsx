@@ -22,7 +22,7 @@ const medicalKnowledgeBase = {
     "Hi there! I'm here to provide information about medications and health-related topics. What can I assist you with?",
     "Welcome to MediMinder's health assistant. I can provide general medication information and health guidance. Please note that this information is for educational purposes and should not replace professional medical advice."
   ],
-
+  
   medications: {
     antibiotics: {
       general: [
@@ -43,7 +43,7 @@ const medicalKnowledgeBase = {
         "Alcohol should be avoided when taking certain antibiotics, such as metronidazole (Flagyl) and tinidazole (Tindamax), as it can cause severe nausea, vomiting, and headaches."
       ]
     },
-
+    
     painRelievers: {
       nsaids: [
         "NSAIDs (Nonsteroidal Anti-Inflammatory Drugs) like ibuprofen (Advil, Motrin), naproxen (Aleve), and aspirin reduce inflammation, pain, and fever.",
@@ -64,7 +64,7 @@ const medicalKnowledgeBase = {
         "Never adjust your opioid dosage without consulting your healthcare provider, and discuss a plan for gradually tapering when it's time to stop taking them."
       ]
     },
-
+    
     antihypertensives: {
       general: [
         "Antihypertensives are medications used to treat high blood pressure (hypertension).",
@@ -192,7 +192,6 @@ export const ChatInterface: React.FC = () => {
     {
       id: '1',
       content: medicalKnowledgeBase.greetings[0] + " " + medicalKnowledgeBase.disclaimer[0],
-      content: "Hi there! I'm your MediMinder assistant. How can I help you with your medications today?",
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -341,22 +340,6 @@ export const ChatInterface: React.FC = () => {
       const botMessage: Message = {
         id: Date.now().toString(),
         content: response,
-    // Simulated AI response - would connect to a real AI service in production
-    setTimeout(() => {
-      const botResponses = [
-        "I understand you're asking about medication. Could you provide more details?",
-        "It's important to take your medications as prescribed by your doctor.",
-        "Remember to store your medications in a cool, dry place away from direct sunlight.",
-        "If you experience any side effects, please consult your healthcare provider immediately.",
-        "Make sure to take this medication with food to avoid stomach upset.",
-        "I'd recommend setting up regular reminders for your medications to ensure you don't miss any doses."
-      ];
-      
-      const randomResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
-      
-      const botMessage: Message = {
-        id: Date.now().toString(),
-        content: randomResponse,
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -408,9 +391,6 @@ export const ChatInterface: React.FC = () => {
         >
           <RefreshCw className="h-4 w-4" />
         </Button>
-            <p className="text-xs text-muted-foreground">Ask about medications, side effects, schedules</p>
-          </div>
-        </div>
       </div>
       
       <ScrollArea className="flex-1 p-4">
@@ -443,7 +423,6 @@ export const ChatInterface: React.FC = () => {
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                    <p className="text-sm">{message.content}</p>
                     <span className="text-xs opacity-70 mt-1 block">
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
@@ -488,7 +467,6 @@ export const ChatInterface: React.FC = () => {
       
       <div className="p-4 border-t border-border">
         <div className="flex space-x-2">
-        <div className="flex">
           <Input
             ref={inputRef}
             value={input}
@@ -509,19 +487,8 @@ export const ChatInterface: React.FC = () => {
         <p className="text-xs text-muted-foreground mt-2 italic">
           For medical emergencies, please call emergency services or visit the nearest emergency room. This assistant provides general medical information for educational purposes only.
         </p>
-            placeholder="Type your message..."
-            className="rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
-          />
-          <Button 
-            onClick={handleSendMessage} 
-            className="rounded-l-none"
-            disabled={!input.trim() || isTyping}
-          >
-            <Send className="h-4 w-4" />
-            <span className="sr-only">Send</span>
-          </Button>
-        </div>
       </div>
     </div>
   );
 };
+
