@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MedicationProvider } from "@/context/MedicationContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 import { ThemeProvider } from "next-themes";
 
 // Pages
@@ -17,15 +16,9 @@ import Chat from "./pages/Chat";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
-<<<<<<< HEAD
 import PharmacyLocator from "./pages/PharmacyLocator";
 import HealthMetrics from "./pages/HealthMetrics";
 import Appointments from "./pages/Appointments";
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
-
-// Add Framer Motion
-import { MotionConfig } from 'framer-motion';
 
 const queryClient = new QueryClient();
 
@@ -74,7 +67,6 @@ const App = () => (
                         </ProtectedRoute>
                       } 
                     />
-<<<<<<< HEAD
                     <Route 
                       path="/pharmacy-locator" 
                       element={
@@ -99,9 +91,7 @@ const App = () => (
                         </ProtectedRoute>
                       } 
                     />
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    {/* Catch-all route */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </AnimatePresence>
@@ -115,3 +105,4 @@ const App = () => (
 );
 
 export default App;
+
