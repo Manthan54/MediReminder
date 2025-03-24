@@ -1,21 +1,12 @@
-<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, RefreshCw, Mic, MicOff } from 'lucide-react';
-=======
-
-import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, RefreshCw } from 'lucide-react';
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { motion, AnimatePresence } from 'framer-motion';
-<<<<<<< HEAD
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
 
 interface Message {
   id: string;
@@ -24,7 +15,6 @@ interface Message {
   timestamp: Date;
 }
 
-<<<<<<< HEAD
 // Comprehensive medical knowledge base
 const medicalKnowledgeBase = {
   greetings: [
@@ -32,7 +22,7 @@ const medicalKnowledgeBase = {
     "Hi there! I'm here to provide information about medications and health-related topics. What can I assist you with?",
     "Welcome to MediMinder's health assistant. I can provide general medication information and health guidance. Please note that this information is for educational purposes and should not replace professional medical advice."
   ],
-  
+
   medications: {
     antibiotics: {
       general: [
@@ -53,7 +43,7 @@ const medicalKnowledgeBase = {
         "Alcohol should be avoided when taking certain antibiotics, such as metronidazole (Flagyl) and tinidazole (Tindamax), as it can cause severe nausea, vomiting, and headaches."
       ]
     },
-    
+
     painRelievers: {
       nsaids: [
         "NSAIDs (Nonsteroidal Anti-Inflammatory Drugs) like ibuprofen (Advil, Motrin), naproxen (Aleve), and aspirin reduce inflammation, pain, and fever.",
@@ -74,7 +64,7 @@ const medicalKnowledgeBase = {
         "Never adjust your opioid dosage without consulting your healthcare provider, and discuss a plan for gradually tapering when it's time to stop taking them."
       ]
     },
-    
+
     antihypertensives: {
       general: [
         "Antihypertensives are medications used to treat high blood pressure (hypertension).",
@@ -197,17 +187,12 @@ const medicalKnowledgeBase = {
   ]
 };
 
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
 export const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-<<<<<<< HEAD
       content: medicalKnowledgeBase.greetings[0] + " " + medicalKnowledgeBase.disclaimer[0],
-=======
       content: "Hi there! I'm your MediMinder assistant. How can I help you with your medications today?",
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
       sender: 'bot',
       timestamp: new Date(),
     },
@@ -217,10 +202,7 @@ export const ChatInterface: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-<<<<<<< HEAD
   const { toast } = useToast();
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
   
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -230,7 +212,6 @@ export const ChatInterface: React.FC = () => {
     scrollToBottom();
   }, [messages]);
 
-<<<<<<< HEAD
   // Function to generate relevant responses based on user query
   const generateResponse = (query: string): string => {
     const lowerQuery = query.toLowerCase();
@@ -339,8 +320,6 @@ export const ChatInterface: React.FC = () => {
     return response;
   };
 
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
   const handleSendMessage = async () => {
     if (!input.trim()) return;
     
@@ -355,7 +334,6 @@ export const ChatInterface: React.FC = () => {
     setInput('');
     setIsTyping(true);
     
-<<<<<<< HEAD
     // Simulate thinking time (more realistic)
     setTimeout(() => {
       const response = generateResponse(userMessage.content);
@@ -363,7 +341,6 @@ export const ChatInterface: React.FC = () => {
       const botMessage: Message = {
         id: Date.now().toString(),
         content: response,
-=======
     // Simulated AI response - would connect to a real AI service in production
     setTimeout(() => {
       const botResponses = [
@@ -380,7 +357,6 @@ export const ChatInterface: React.FC = () => {
       const botMessage: Message = {
         id: Date.now().toString(),
         content: randomResponse,
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -397,7 +373,6 @@ export const ChatInterface: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
   const clearChat = () => {
     setMessages([
       {
@@ -413,8 +388,6 @@ export const ChatInterface: React.FC = () => {
     });
   };
 
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)] glass-card rounded-xl overflow-hidden">
       <div className="bg-secondary/50 backdrop-blur-sm p-4 border-b border-border flex items-center justify-between">
@@ -424,7 +397,6 @@ export const ChatInterface: React.FC = () => {
           </Avatar>
           <div>
             <h2 className="text-sm font-medium">MediMinder Assistant</h2>
-<<<<<<< HEAD
             <p className="text-xs text-muted-foreground">Medication information & health advice</p>
           </div>
         </div>
@@ -436,11 +408,9 @@ export const ChatInterface: React.FC = () => {
         >
           <RefreshCw className="h-4 w-4" />
         </Button>
-=======
             <p className="text-xs text-muted-foreground">Ask about medications, side effects, schedules</p>
           </div>
         </div>
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
       </div>
       
       <ScrollArea className="flex-1 p-4">
@@ -472,11 +442,8 @@ export const ChatInterface: React.FC = () => {
                         : 'bg-secondary text-secondary-foreground'
                     }`}
                   >
-<<<<<<< HEAD
                     <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-=======
                     <p className="text-sm">{message.content}</p>
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
                     <span className="text-xs opacity-70 mt-1 block">
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
@@ -520,17 +487,13 @@ export const ChatInterface: React.FC = () => {
       </ScrollArea>
       
       <div className="p-4 border-t border-border">
-<<<<<<< HEAD
         <div className="flex space-x-2">
-=======
         <div className="flex">
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
           <Input
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-<<<<<<< HEAD
             placeholder="Ask about medications, side effects, or health advice..."
             className="focus-visible:ring-0 focus-visible:ring-offset-0"
           />
@@ -546,7 +509,6 @@ export const ChatInterface: React.FC = () => {
         <p className="text-xs text-muted-foreground mt-2 italic">
           For medical emergencies, please call emergency services or visit the nearest emergency room. This assistant provides general medical information for educational purposes only.
         </p>
-=======
             placeholder="Type your message..."
             className="rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0"
           />
@@ -559,12 +521,7 @@ export const ChatInterface: React.FC = () => {
             <span className="sr-only">Send</span>
           </Button>
         </div>
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
       </div>
     </div>
   );
 };
-<<<<<<< HEAD
-
-=======
->>>>>>> baae62d1af335813b64a63095e50f5567eb49b1c
