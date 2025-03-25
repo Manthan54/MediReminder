@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Medication } from '@/components/MedicationCard';
 import { 
@@ -38,7 +37,6 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
   const [notificationTimeouts, setNotificationTimeouts] = useState<Record<string, number>>({});
   const [hasRequestedPermission, setHasRequestedPermission] = useState(false);
   
-  // State for the reminder dialog
   const [reminderDialogOpen, setReminderDialogOpen] = useState(false);
   const [currentReminder, setCurrentReminder] = useState<Medication | null>(null);
 
@@ -47,14 +45,12 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
   }, [medications]);
 
   useEffect(() => {
-    // Request notification permission on component mount
     if (!hasRequestedPermission) {
       requestNotificationPermission().then((granted) => {
         setHasRequestedPermission(true);
         if (granted) {
           scheduleMedicationNotifications();
           
-          // Test notification with sound to verify it works
           setTimeout(() => {
             showNotification(
               'Medication Reminder Setup',
@@ -63,7 +59,6 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
                 data: { url: '/' }
               }
             );
-            // Explicitly play sound to test
             playNotificationSound();
           }, 1000);
           
@@ -80,39 +75,43 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
   }, [hasRequestedPermission]);
 
   useEffect(() => {
-    // Clear existing notification timeouts
+    stopContinuousSound();
+    
     Object.values(notificationTimeouts).forEach(timeoutId => {
       clearTimeout(timeoutId);
     });
     
-    // Schedule new notifications
     if (Notification.permission === 'granted') {
       scheduleMedicationNotifications();
     }
-  }, [medications]); // Re-schedule when medications change
+    
+    return () => {
+      stopContinuousSound();
+      Object.values(notificationTimeouts).forEach(timeoutId => {
+        clearTimeout(timeoutId);
+      });
+    };
+  }, [medications]);
 
   const scheduleMedicationNotifications = () => {
     const newTimeouts: Record<string, number> = {};
     
     medications.forEach(medication => {
-      if (medication.taken) return; // Skip already taken medications
+      if (medication.taken) return;
       
       const [hours, minutes] = medication.time.split(':').map(Number);
       const scheduledTime = new Date();
       scheduledTime.setHours(hours, minutes, 0, 0);
       
-      // If time has already passed today, don't schedule
       if (scheduledTime.getTime() < Date.now()) return;
       
       const timeUntilNotification = scheduledTime.getTime() - Date.now();
       
       console.log(`Scheduling notification for ${medication.name} in ${timeUntilNotification / 1000} seconds`);
       
-      // Schedule the notification with sound and dialog
       const timeoutId = window.setTimeout(() => {
         console.log(`Triggered notification for ${medication.name}`);
         
-        // Show the system notification
         const notification = showNotification(
           `Time to take ${medication.name}`,
           {
@@ -121,50 +120,19 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
               url: '/',
               onAccept: () => markMedicationTaken(medication.id)
             },
-            requireInteraction: true // Keep notification until user interacts with it
+            requireInteraction: true
           }
         );
         
-        // Start continuous sound playing
         startContinuousSound();
         
-        // Show toast notification
         toast.info(`Time to take ${medication.name}`, {
           duration: 10000,
         });
         
-        // Show the dialog
         setCurrentReminder(medication);
         setReminderDialogOpen(true);
       }, timeUntilNotification);
-      
-      // For testing, if a medication is due within the next minute, set a test notification
-      if (timeUntilNotification < 60000 && timeUntilNotification > 0) {
-        console.log(`Setting test notification for ${medication.name} in 5 seconds`);
-        setTimeout(() => {
-          console.log(`Test notification for ${medication.name}`);
-          
-          // Show the system notification
-          showNotification(
-            `Time to take ${medication.name}`,
-            {
-              body: `${medication.dosage} - ${medication.instructions || 'Take as directed'}`,
-              data: { 
-                url: '/',
-                onAccept: () => markMedicationTaken(medication.id)
-              },
-              requireInteraction: true
-            }
-          );
-          
-          // Start continuous sound playing
-          startContinuousSound();
-          
-          // Show the dialog
-          setCurrentReminder(medication);
-          setReminderDialogOpen(true);
-        }, 5000); // Show test notification after 5 seconds
-      }
       
       newTimeouts[medication.id] = timeoutId;
     });
@@ -182,7 +150,6 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
     setMedications(prev => [...prev, newMedication]);
     toast.success(`Added ${medication.name} to your medication list`);
     
-    // Request notification permission again if not granted
     if (Notification.permission !== 'granted') {
       requestNotificationPermission();
     }
@@ -202,7 +169,6 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
   const deleteMedication = (id: string) => {
     const medicationToDelete = medications.find(med => med.id === id);
     
-    // Clear notification timeout if it exists
     if (notificationTimeouts[id]) {
       clearTimeout(notificationTimeouts[id]);
       const newTimeouts = { ...notificationTimeouts };
@@ -223,10 +189,8 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
         if (med.id === id) {
           const newTakenStatus = !med.taken;
           
-          // Show notification when marking as taken
           if (newTakenStatus) {
             toast.success(`Marked ${med.name} as taken`);
-            // Stop any active sound if this was from a reminder
             stopContinuousSound();
           } else {
             toast.info(`Unmarked ${med.name}`);
@@ -241,8 +205,6 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
 
   const getTodayMedications = () => {
     return medications.filter(med => {
-      // For simplicity, return all medications
-      // In a real app, you would filter by date
       return true;
     });
   };
@@ -265,7 +227,6 @@ export const MedicationProvider: React.FC<MedicationProviderProps> = ({ children
     >
       {children}
       
-      {/* Medication Reminder Dialog */}
       {currentReminder && (
         <MedicationReminderDialog
           open={reminderDialogOpen}

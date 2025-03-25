@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, LogIn, UserPlus } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Auth = () => {
   const { signIn, signUp, session } = useAuth();
@@ -16,8 +17,10 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const isMobile = useIsMobile();
 
-  React.useEffect(() => {
+  // Use useEffect to navigate only once when session changes
+  useEffect(() => {
     if (session) {
       navigate('/');
     }
@@ -83,7 +86,7 @@ const Auth = () => {
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className={`absolute left-3 top-3 ${isMobile ? "h-3.5 w-3.5" : "h-4 w-4"} text-muted-foreground`} />
                       <Input
                         id="email"
                         type="email"
@@ -98,7 +101,7 @@ const Auth = () => {
                   <div className="space-y-2">
                     <Label htmlFor="password">Password</Label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Lock className={`absolute left-3 top-3 ${isMobile ? "h-3.5 w-3.5" : "h-4 w-4"} text-muted-foreground`} />
                       <Input
                         id="password"
                         type="password"
@@ -116,7 +119,7 @@ const Auth = () => {
                       <span className="animate-pulse">Signing in...</span>
                     ) : (
                       <>
-                        <LogIn className="mr-2 h-4 w-4" />
+                        <LogIn className={`mr-2 ${isMobile ? "h-3.5 w-3.5" : "h-4 w-4"}`} />
                         Sign In
                       </>
                     )}
@@ -135,7 +138,7 @@ const Auth = () => {
                   <div className="space-y-2">
                     <Label htmlFor="new-email">Email</Label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className={`absolute left-3 top-3 ${isMobile ? "h-3.5 w-3.5" : "h-4 w-4"} text-muted-foreground`} />
                       <Input
                         id="new-email"
                         type="email"
@@ -150,7 +153,7 @@ const Auth = () => {
                   <div className="space-y-2">
                     <Label htmlFor="new-password">Password</Label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Lock className={`absolute left-3 top-3 ${isMobile ? "h-3.5 w-3.5" : "h-4 w-4"} text-muted-foreground`} />
                       <Input
                         id="new-password"
                         type="password"
@@ -168,7 +171,7 @@ const Auth = () => {
                       <span className="animate-pulse">Signing up...</span>
                     ) : (
                       <>
-                        <UserPlus className="mr-2 h-4 w-4" />
+                        <UserPlus className={`mr-2 ${isMobile ? "h-3.5 w-3.5" : "h-4 w-4"}`} />
                         Sign Up
                       </>
                     )}

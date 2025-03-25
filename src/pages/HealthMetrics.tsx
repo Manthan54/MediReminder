@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Layout } from '@/components/Layout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -24,24 +24,6 @@ interface HealthMetric {
   doctorName?: string;
 }
 
-// Mock data
-const initialMetrics: HealthMetric[] = [
-  { id: '1', type: 'Blood Pressure', value: 120, unit: 'mmHg', date: new Date(2023, 6, 1), notes: 'Morning reading' },
-  { id: '2', type: 'Blood Pressure', value: 118, unit: 'mmHg', date: new Date(2023, 6, 8), notes: 'After exercise' },
-  { id: '3', type: 'Blood Pressure', value: 122, unit: 'mmHg', date: new Date(2023, 6, 15), notes: 'Before bed' },
-  { id: '4', type: 'Blood Pressure', value: 119, unit: 'mmHg', date: new Date(2023, 6, 22), notes: 'Morning reading' },
-  { id: '5', type: 'Heart Rate', value: 72, unit: 'bpm', date: new Date(2023, 6, 1), notes: 'Resting' },
-  { id: '6', type: 'Heart Rate', value: 75, unit: 'bpm', date: new Date(2023, 6, 8), notes: 'Morning' },
-  { id: '7', type: 'Heart Rate', value: 70, unit: 'bpm', date: new Date(2023, 6, 15), notes: 'After meditation' },
-  { id: '8', type: 'Heart Rate', value: 73, unit: 'bpm', date: new Date(2023, 6, 22), notes: 'Evening' },
-  { id: '9', type: 'Weight', value: 160, unit: 'lbs', date: new Date(2023, 6, 1), notes: 'Morning weight' },
-  { id: '10', type: 'Weight', value: 159, unit: 'lbs', date: new Date(2023, 6, 15), notes: 'Morning weight' },
-  { id: '11', type: 'Temperature', value: 98.6, unit: '°F', date: new Date(2023, 6, 3), notes: 'Normal' },
-  { id: '12', type: 'Blood Glucose', value: 95, unit: 'mg/dL', date: new Date(2023, 6, 1), notes: 'Fasting' },
-  { id: '13', type: 'Blood Glucose', value: 92, unit: 'mg/dL', date: new Date(2023, 6, 8), notes: 'Fasting' },
-  { id: '14', type: 'Blood Glucose', value: 98, unit: 'mg/dL', date: new Date(2023, 6, 15), notes: 'After breakfast' },
-];
-
 const metricTypes = [
   { value: 'Blood Pressure', label: 'Blood Pressure', icon: Heart, unit: 'mmHg' },
   { value: 'Heart Rate', label: 'Heart Rate', icon: Activity, unit: 'bpm' },
@@ -62,7 +44,7 @@ const FormSchema = z.object({
 });
 
 const HealthMetrics = () => {
-  const [metrics, setMetrics] = useState<HealthMetric[]>(initialMetrics);
+  const [metrics, setMetrics] = useState<HealthMetric[]>([]);
   const [selectedMetricType, setSelectedMetricType] = useState<string>('Blood Pressure');
   
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -105,7 +87,7 @@ const HealthMetrics = () => {
       doctorName: data.doctorName,
     };
     
-    setMetrics([...metrics, newMetric]);
+    setMetrics(prevMetrics => [...prevMetrics, newMetric]);
     toast.success('Health metric added successfully');
     form.reset({
       type: data.type,
@@ -297,41 +279,6 @@ const HealthMetrics = () => {
                   )}
                 </div>
               </CardContent>
-            </Card>
-            
-            <Card className="glass-card">
-              <CardHeader className="pb-2">
-                <CardTitle>Recent Measurements</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {filteredMetrics.length > 0 ? (
-                    [...filteredMetrics]
-                      .sort((a, b) => b.date.getTime() - a.date.getTime())
-                      .slice(0, 5)
-                      .map((metric) => (
-                        <div 
-                          key={metric.id} 
-                          className="flex justify-between items-center p-3 border rounded-md hover:bg-muted/50 transition-colors"
-                        >
-                          <div>
-                            <p className="font-medium">{metric.value} {metric.unit}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {format(metric.date, 'PPP')} - {metric.notes}
-                            </p>
-                          </div>
-                        </div>
-                      ))
-                  ) : (
-                    <p className="text-muted-foreground">No recent measurements</p>
-                  )}
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="outline" className="w-full">
-                  View All Measurements
-                </Button>
-              </CardFooter>
             </Card>
           </div>
         </div>
