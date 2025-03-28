@@ -78,16 +78,7 @@ export const AddMedicationForm: React.FC<AddMedicationFormProps> = ({
   }, [editingMedication, form]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Ensure all required fields have values to satisfy TypeScript
-    const medicationData: Omit<Medication, 'id' | 'taken'> = {
-      name: values.name,
-      dosage: values.dosage,
-      time: values.time,
-      frequency: values.frequency,
-      instructions: values.instructions || '',
-    };
-    
-    onSave(medicationData);
+    onSave(values);
     onOpenChange(false);
   };
 

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, PlusCircle, MessageCircle, Settings, MapPin, Activity, CalendarCheck } from 'lucide-react';
+import { Home, PlusCircle, MessageCircle, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const Navbar: React.FC = () => {
@@ -11,9 +11,6 @@ export const Navbar: React.FC = () => {
     { path: '/', icon: Home, label: 'Home' },
     { path: '/medications', icon: PlusCircle, label: 'Medications' },
     { path: '/chat', icon: MessageCircle, label: 'Chat' },
-    { path: '/pharmacy-locator', icon: MapPin, label: 'Pharmacies' },
-    { path: '/health-metrics', icon: Activity, label: 'Health' },
-    { path: '/appointments', icon: CalendarCheck, label: 'Appointments' },
     { path: '/settings', icon: Settings, label: 'Settings' },
   ];
 
@@ -31,7 +28,7 @@ export const Navbar: React.FC = () => {
       {/* Bottom navigation */}
       <nav className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-t border-border z-50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-7 items-center h-16">
+          <div className="flex justify-around items-center h-16">
             {navItems.map((item) => (
               <Link 
                 key={item.path} 
@@ -47,10 +44,10 @@ export const Navbar: React.FC = () => {
                     />
                   )}
                   <item.icon 
-                    className={`h-5 w-5 ${location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'}`} 
+                    className={`h-6 w-6 ${location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'}`} 
                   />
                 </div>
-                <span className={`text-xs mt-1 ${location.pathname === item.path ? 'text-primary font-medium' : 'text-muted-foreground'} truncate`}>
+                <span className={`text-xs mt-1 ${location.pathname === item.path ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
                   {item.label}
                 </span>
               </Link>
