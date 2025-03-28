@@ -55,7 +55,10 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors;
+  }
+  html {
+    @apply scroll-smooth;
   }
 }
 
@@ -65,7 +68,7 @@
 
 /* Glass card effect */
 .glass-card {
-  @apply bg-background/80 backdrop-blur-lg border border-border/50 shadow-md;
+  @apply bg-background/80 backdrop-blur-lg border border-border/50 shadow-md transition-colors duration-300;
 }
 
 /* Custom scrollbar */
